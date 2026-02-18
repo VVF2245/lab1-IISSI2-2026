@@ -45,8 +45,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {
