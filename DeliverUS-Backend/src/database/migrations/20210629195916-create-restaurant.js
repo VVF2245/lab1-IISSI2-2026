@@ -10,37 +10,57 @@ module.exports = {
       // TODO: Include the rest of the fields of the Restaurants table
       name: Sequelize.STRING,
       description: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true
       },
-      address: Sequelize.String,
-      postalCode: Sequelize.String,
+      address: Sequelize.STRING,
+      postalCode: Sequelize.STRING,
       url: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true
       },
-      shippingCosts: Sequelize.Float,
+      restaurantCategoryId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'RestaurantCategories'
+          },
+          key: 'id'
+        }
+      },
+      shippingCosts: Sequelize.DOUBLE,
       averageServiceMinutes: {
-        type: Sequelize.Float,
+        type: Sequelize.DOUBLE,
         allowNull: true
       },
       email: {
-        type: Sequelize.String,
-        allowNull: true
-      },
-      phone: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true
       },
       logo: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true
+      },
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        }
       },
       heroImage: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true
       },
-      status: Sequelize.Enum('online', 'offline', 'closed', 'temporarily closed')
+      status: Sequelize.ENUM('online', 'offline', 'closed', 'temporarily closed')
     })
   },
   down: async (queryInterface, Sequelize) => {
