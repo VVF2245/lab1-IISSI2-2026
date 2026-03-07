@@ -8,55 +8,69 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       // TODO: Include the rest of the fields of the Restaurants table
-      name: Sequelize.STRING,
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       description: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
       },
-      address: Sequelize.STRING,
-      postalCode: Sequelize.STRING,
+      address: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      postalCode: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       url: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
       },
-      restaurantCategoryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'RestaurantCategories'
-          },
-          key: 'id'
-        }
+      shippingCosts: {
+        allowNull: false,
+        defaultValue: 0.0,
+        type: Sequelize.DOUBLE
       },
-      shippingCosts: Sequelize.DOUBLE,
       averageServiceMinutes: {
-        type: Sequelize.DOUBLE,
-        allowNull: true
+        allowNull: true,
+        type: Sequelize.DOUBLE
       },
       email: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      logo: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
       },
       phone: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING
+      },
+      logo: {
+        type: Sequelize.STRING
+      },
+      heroImage: {
+        type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.ENUM,
+        values: [
+          'online',
+          'offline',
+          'closed',
+          'temporarily closed'
+        ],
+        defaultValue: 'offline'
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: {
             tableName: 'Users'
@@ -64,11 +78,16 @@ module.exports = {
           key: 'id'
         }
       },
-      heroImage: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      status: Sequelize.ENUM('online', 'offline', 'closed', 'temporarily closed')
+      restaurantCategoryId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'RestaurantCategories'
+          },
+          key: 'id'
+        }
+      }
     })
   },
   down: async (queryInterface, Sequelize) => {

@@ -28,59 +28,55 @@ const loadModel = (sequelize, DataTypes) => {
   }
   Restaurant.init({
     // TODO: Include the rest of the properties of the Restaurant model
-    name: DataTypes.STRING,
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
     },
-    address: DataTypes.STRING,
-    postalCode: DataTypes.STRING,
-    url: {
-      type: DataTypes.STRING,
-      allowNull: true
+    description: DataTypes.STRING,
+    address: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    postalCode: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    url: DataTypes.STRING,
+    shippingCosts: {
+      allowNull: false,
+      type: DataTypes.DOUBLE
+    },
+    averageServiceMinutes: DataTypes.DOUBLE,
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    logo: DataTypes.STRING,
+    heroImage: DataTypes.STRING,
+    status: {
+      type: DataTypes.ENUM,
+      values: [
+        'online',
+        'offline',
+        'closed',
+        'temporarily closed'
+      ]
     },
     restaurantCategoryId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: {
-          tableName: 'RestaurantCategories'
-        },
-        key: 'id'
-      }
-    },
-    shippingCosts: DataTypes.DOUBLE,
-    averageServiceMinutes: {
-      type: DataTypes.DOUBLE,
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    logo: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    heroImage: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    status: {
-      type: DataTypes.ENUM('online', 'offline', 'closed', 'temporarily closed'),
-      allowNull: false
+      allowNull: false,
+      type: DataTypes.INTEGER
     },
     userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: {
-          tableName: 'Users'
-        },
-        key: 'id'
-      }
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
     }
   }, {
     sequelize,
